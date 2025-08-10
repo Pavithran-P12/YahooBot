@@ -29,17 +29,13 @@ def send_to_telegram(file_path):
     except Exception as e:
         print(f"Error sending to Telegram: {e}")
 
-def download_latest_attachment():
-    """Connect to Yahoo Mail and download the latest attachment."""
+def download_latest_unread_attachment():
+    """Connect to Yahoo Mail and process the latest unread email with attachment."""
     print("Cron job started.")
 
     # Check environment variables
     if not all([EMAIL_USER, EMAIL_PASS, TELEGRAM_TOKEN, TELEGRAM_CHAT_ID]):
         print("Missing one or more required environment variables.")
-        print(f"EMAIL_USER: {EMAIL_USER}")
-        print(f"EMAIL_PASS: {'***' if EMAIL_PASS else 'Missing'}")
-        print(f"TELEGRAM_TOKEN: {'***' if TELEGRAM_TOKEN else 'Missing'}")
-        print(f"TELEGRAM_CHAT_ID: {TELEGRAM_CHAT_ID}")
         return
 
     try:
@@ -53,19 +49,19 @@ def download_latest_attachment():
             print("Failed to select folder 'B2b'")
             return
 
-        result, data = mail.search(None, "ALL")
+        result, data = mail.search(None, "UNSEEN")
         if result != "OK":
-            print("No messages found!")
+            print("Failed to search for unread emails.")
             return
 
         mail_ids = data[0].split()
-        print(f"Found {len(mail_ids)} emails.")
+        print(f"Found {len(mail_ids)} unread emails.")
         if not mail_ids:
-            print("No email IDs returned.")
+            print("No unread emails found.")
             return
 
         latest_email_id = mail_ids[-1]
-        print(f"Fetching email ID: {latest_email_id.decode()}")
+        print(f"Fetching unread email ID: {latest_email_id.decode()}")
 
         result, data = mail.fetch(latest_email_id, "(RFC822)")
         if result != "OK":
@@ -91,11 +87,15 @@ def download_latest_attachment():
                     if os.path.exists(file_path):
                         print(f"File saved at: {file_path}")
                         send_to_telegram(file_path)
+
+                        # Mark email as read
+                        mail.store(latest_email_id, '+FLAGS', '\\Seen')
+                        print("Email marked as read.")
                     else:
                         print("File not saved!")
                     break
         else:
-            print("No attachment found in the latest email.")
+            print("No attachment found in the unread email.")
 
         mail.logout()
         print("IMAP session closed.")
@@ -103,4 +103,4 @@ def download_latest_attachment():
         print(f"Error during email processing: {e}")
 
 if __name__ == "__main__":
-    download_latest_attachment()
+    download_latest_unread_attachment()
