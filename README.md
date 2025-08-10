@@ -3,15 +3,6 @@ Thanks for the request! While I can't directly create downloadable files, here's
 
 ---
 
-### 📥 How to Create the README File
-
-1. **Copy the content below**  
-2. **Paste it into a new file** named `README.md` using any text editor (e.g., VS Code, Notepad, Sublime Text)
-
----
-
-### 📄 README.md Content
-
 ```markdown
 # 📬 Email Attachment Forwarder to Telegram
 
