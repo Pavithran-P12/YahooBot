@@ -1,6 +1,4 @@
 # YahooBot
-Thanks for the request! While I can't directly create downloadable files, here's a simple way for you to get a downloadable **README.md**:
-
 ---
 
 ```markdown
@@ -105,13 +103,6 @@ In the **Environment** section of the cron job setup:
 - **No logs?** Add `print()` statements to trace execution.  
 - **No attachment sent?** Check folder name (`B2b`) and email structure.  
 - **Telegram error?** Ensure the bot is not blocked and has permission to send messages.
-
----
-
-## 📄 License
-
-MIT License. Feel free to modify and use for personal or commercial projects.
-```
 
 ---
 
