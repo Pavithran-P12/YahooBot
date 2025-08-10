@@ -26,7 +26,7 @@ def download_latest_attachment():
     try:
         mail = imaplib.IMAP4_SSL(IMAP_SERVER)
         mail.login(EMAIL_USER, EMAIL_PASS)
-        mail.select("inbox")
+        mail.select("B2b")
 
         result, data = mail.search(None, "ALL")
         if result != "OK":
@@ -57,3 +57,4 @@ def download_latest_attachment():
 
 if __name__ == "__main__":
     download_latest_attachment()
+
