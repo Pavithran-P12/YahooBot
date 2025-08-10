@@ -105,5 +105,3 @@ In the **Environment** section of the cron job setup:
 - **Telegram error?** Ensure the bot is not blocked and has permission to send messages.
 
 ---
-
-Once you've saved it as `README.md`, you can upload it to GitHub or share it as needed. Want help creating a GitHub repo structure for this project too?
